@@ -10,13 +10,15 @@ const AddStudent = ({ navigation, refreshStudents }) => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://127.0.0.1:8000/api/students/", {
+      const studentData = { 
         full_name: fullName,
         course: course,
         year_level: yearLevel,
-      });
+      };
 
-      navigation.navigate("SubmissionConfirmation");
+      await axios.post("http://127.0.0.1:8000/api/students/", studentData);
+
+      navigation.navigate("SubmissionConfirmation", { student: studentData }); 
       setFullName("");
       setCourse("");
       setYearLevel("");
